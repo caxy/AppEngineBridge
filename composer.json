@@ -9,7 +9,7 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Caxy\\AppEngine\\": "" }
+        "psr-4": { "Caxy\\AppEngine\\Bridge\\": "" }
     },
     "extra": {
         "branch-alias": {

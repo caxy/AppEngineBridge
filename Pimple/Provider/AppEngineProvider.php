@@ -1,16 +1,16 @@
 <?php
 
-namespace Caxy\AppEngine\Pimple\Provider;
+namespace Caxy\AppEngine\Bridge\Pimple\Provider;
 
-use Caxy\AppEngine\Twig\Environment;
+use Caxy\AppEngine\Bridge\Twig\Environment;
 use google\appengine\api\cloud_storage\CloudStorageTools;
-use Caxy\AppEngine\Monolog\Handler\SyslogHandler;
+use Caxy\AppEngine\Bridge\Monolog\Handler\SyslogHandler;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Provider\MonologServiceProvider;
 
 /**
- * Class GoogleAppEngineProvider
+ * Class AppEngineProvider
  */
 class AppEngineProvider implements ServiceProviderInterface
 {

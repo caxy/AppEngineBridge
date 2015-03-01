@@ -1,6 +1,6 @@
 <?php
 
-namespace Caxy\AppEngine\Monolog\Handler;
+namespace Caxy\AppEngine\Bridge\Monolog\Handler;
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
@@ -8,7 +8,6 @@ use Monolog\Logger;
 
 /**
  * Class SyslogHandler
- * @package Caxy\AppEngine\Monolog\Handler
  */
 class SyslogHandler extends AbstractProcessingHandler
 {

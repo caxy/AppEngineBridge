@@ -1,10 +1,9 @@
 <?php
 
-namespace Caxy\AppEngine\Twig;
+namespace Caxy\AppEngine\Bridge\Twig;
 
 /**
  * Class Environment
- * @package Caxy\AppEngine\Twig
  */
 class Environment extends \Twig_Environment
 {
