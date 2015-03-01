@@ -2,7 +2,6 @@
 
 namespace Caxy\AppEngine\Bridge\Pimple\Provider;
 
-use Caxy\AppEngine\Bridge\Twig\Environment;
 use google\appengine\api\cloud_storage\CloudStorageTools;
 use Caxy\AppEngine\Bridge\Monolog\Handler\SyslogHandler;
 use Pimple\Container;
@@ -38,11 +37,7 @@ class AppEngineProvider implements ServiceProviderInterface
 
         $pimple['google.storage_bucket.default'] = CloudStorageTools::getDefaultGoogleStorageBucketName();
 
-        $pimple['twig.environment_factory'] = $pimple->protect(function (Container $pimple) {
-            $options = array('cache' => 'gs://'.$pimple['google.storage_bucket.default'].'/var/cache/twig');
-
-            return new Environment($pimple['twig.loader'], array_merge($pimple['twig.options'], $options));
-        });
+        $pimple['twig.options'] = array('cache' => 'gs://'.$pimple['google.storage_bucket.default'].'/var/cache/twig');
 
         $pimple['monolog.handler'] = function (Container $pimple) {
             $level = MonologServiceProvider::translateLevel($pimple['monolog.level']);
