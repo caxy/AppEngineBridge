@@ -1,0 +1,19 @@
+{
+    "name": "caxy/appengine-bridge",
+    "description": "Components to support Symfony components in Google App Engine",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Benjamin Doherty",
+            "email": "bdoherty@caxy.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Caxy\\AppEngine\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
