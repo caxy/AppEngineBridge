@@ -15,10 +15,8 @@ use Silex\Provider\MonologServiceProvider;
 class AppEngineProvider implements ServiceProviderInterface
 {
     /**
-     *
+     * @var bool
      */
-    const GAE_APP_ID = 'Google App Engine';
-
     private $isAppEngine = false;
 
     /**
@@ -26,7 +24,7 @@ class AppEngineProvider implements ServiceProviderInterface
      */
     public function __construct()
     {
-        $this->isAppEngine = substr($_SERVER['SERVER_SOFTWARE'], 0, strlen(self::GAE_APP_ID)) === self::GAE_APP_ID;
+        $this->isAppEngine = strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine') === 0;
     }
 
     /**
