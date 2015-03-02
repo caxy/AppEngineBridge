@@ -24,7 +24,9 @@ abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
         if (self::isAppEngine()) {
             // https://cloud.google.com/appengine/docs/php/#PHP_Disabled_functions
             libxml_disable_entity_loader(false);
-            $this->defaultStorageBucketName = CloudStorageTools::getDefaultGoogleStorageBucketName();
+            $this->defaultStorageBucketName = isset($_SERVER['SYMFONY__APP_ENGINE__DEFAULT_BUCKET_NAME']) ?
+                $_SERVER['SYMFONY__APP_ENGINE__DEFAULT_BUCKET_NAME'] :
+                CloudStorageTools::getDefaultGoogleStorageBucketName();
         }
     }
 
