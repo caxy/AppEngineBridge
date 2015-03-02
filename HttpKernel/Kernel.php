@@ -21,7 +21,7 @@ abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
     public function __construct($environment, $debug)
     {
         parent::__construct($environment, $debug);
-        if ($this->environment === 'appengine') {
+        if (self::isAppEngine()) {
             // https://cloud.google.com/appengine/docs/php/#PHP_Disabled_functions
             libxml_disable_entity_loader(false);
             $this->defaultStorageBucketName = CloudStorageTools::getDefaultGoogleStorageBucketName();
@@ -33,7 +33,7 @@ abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
      */
     public function getCacheDir()
     {
-        if ($this->environment === 'appengine') {
+        if (self::isAppEngine()) {
             return 'gs://'. $this->defaultStorageBucketName .'/var/cache/'. $this->environment;
         }
         return parent::getCacheDir();
@@ -44,9 +44,19 @@ abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
      */
     public function getLogDir()
     {
-        if ($this->environment === 'appengine') {
+        if (self::isAppEngine()) {
             return 'gs://'. $this->defaultStorageBucketName .'/var/logs';
         }
         return parent::getLogDir();
+    }
+
+    /**
+     * Test if this kernel is running on Google App Engine.
+     *
+     * @return bool
+     */
+    protected static function isAppEngine()
+    {
+        return (isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine') !== false);
     }
 }
