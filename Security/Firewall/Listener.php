@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Security\Firewall;
+namespace Caxy\AppEngine\Bundle\Security\Firewall;
 
 use Caxy\AppEngine\Bridge\Security\Authentication\UserToken;
 use google\appengine\api\users\UserService;
