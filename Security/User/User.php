@@ -18,7 +18,7 @@ class User implements UserInterface
 
     /**
      * @param \google\appengine\api\users\User $user
-     * @param bool $isAdmin
+     * @param bool                             $isAdmin
      */
     public function __construct(\google\appengine\api\users\User $user, $isAdmin = false)
     {
@@ -27,7 +27,7 @@ class User implements UserInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function getRoles()
     {
@@ -35,7 +35,7 @@ class User implements UserInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function getPassword()
     {
@@ -43,14 +43,14 @@ class User implements UserInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function getSalt()
     {
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function getUsername()
     {
@@ -58,7 +58,7 @@ class User implements UserInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function eraseCredentials()
     {

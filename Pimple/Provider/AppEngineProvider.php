@@ -9,7 +9,7 @@ use Pimple\ServiceProviderInterface;
 use Silex\Provider\MonologServiceProvider;
 
 /**
- * Class AppEngineProvider
+ * Class AppEngineProvider.
  */
 class AppEngineProvider implements ServiceProviderInterface
 {
@@ -27,7 +27,7 @@ class AppEngineProvider implements ServiceProviderInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function register(Container $pimple)
     {

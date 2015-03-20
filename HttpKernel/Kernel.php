@@ -5,8 +5,7 @@ namespace Caxy\AppEngine\Bridge\HttpKernel;
 use google\appengine\api\cloud_storage\CloudStorageTools;
 
 /**
- * Class Kernel
- * @package Caxy\AppEngine\Bridge\HttpKernel
+ * Class Kernel.
  */
 abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
 {
@@ -36,8 +35,9 @@ abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
     public function getCacheDir()
     {
         if (self::isAppEngine()) {
-            return 'gs://'. $this->defaultStorageBucketName .'/var/cache/'. $this->environment;
+            return 'gs://'.$this->defaultStorageBucketName.'/var/cache/'.$this->environment;
         }
+
         return parent::getCacheDir();
     }
 
@@ -47,8 +47,9 @@ abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
     public function getLogDir()
     {
         if (self::isAppEngine()) {
-            return 'gs://'. $this->defaultStorageBucketName .'/var/logs';
+            return 'gs://'.$this->defaultStorageBucketName.'/var/logs';
         }
+
         return parent::getLogDir();
     }
 

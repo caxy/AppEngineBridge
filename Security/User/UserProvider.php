@@ -8,13 +8,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
- * Class UserProvider
- * @package Caxy\AppEngine\Bridge\Security\User
+ * Class UserProvider.
  */
 class UserProvider implements UserProviderInterface
 {
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function loadUserByUsername($username)
     {
@@ -29,7 +28,7 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function refreshUser(UserInterface $user)
     {
@@ -37,7 +36,7 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * {@inheritdocs}
+     * {@inheritdocs}.
      */
     public function supportsClass($class)
     {

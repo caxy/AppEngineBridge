@@ -7,7 +7,7 @@ use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
 /**
- * Class SyslogHandler
+ * Class SyslogHandler.
  */
 class SyslogHandler extends AbstractProcessingHandler
 {
@@ -26,10 +26,9 @@ class SyslogHandler extends AbstractProcessingHandler
     );
 
     /**
-     * Writes the record down to the log of the implementing handler
+     * Writes the record down to the log of the implementing handler.
      *
-     * @param  array $record
-     * @return void
+     * @param array $record
      */
     protected function write(array $record)
     {
