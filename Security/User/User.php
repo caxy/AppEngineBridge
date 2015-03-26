@@ -31,7 +31,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return $this->isAdmin ? array('ROLE_ADMIN', 'ROLE_USER') : array('ROLE_USER');
+        return $this->isAdmin ? array('ROLE_SUPER_ADMIN', 'ROLE_USER') : array('ROLE_USER');
     }
 
     /**
