@@ -36,5 +36,10 @@ class Factory implements SecurityFactoryInterface
 
     public function addConfiguration(NodeDefinition $node)
     {
+        $node
+            ->children()
+            ->scalarNode('provider')->end()
+            ->end()
+        ;
     }
 }
