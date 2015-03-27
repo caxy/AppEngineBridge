@@ -2,7 +2,6 @@
 
 namespace Caxy\AppEngine\Bridge\Security\Authentication;
 
-use google\appengine\api\users\User;
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
 /**
@@ -10,48 +9,35 @@ use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
  */
 class AppEngineToken extends AbstractToken
 {
-    private $providerKey;
-
     /**
-     * @param User  $user
+     * @param $user
+     * @param array $attributes
      * @param array $roles
      */
-    public function __construct(User $user, $roles = array())
+    public function __construct($user, array $attributes = array(), array $roles = array())
     {
         parent::__construct($roles);
 
-        $this->setUser($user->getNickname());
+        $this->setUser($user);
+        $this->setAttributes($attributes);
 
-        $this->setAttributes(array(
-            'auth_domain' => $user->getAuthDomain(),
-            'email' => $user->getEmail(),
-            'federated_identity' => $user->getFederatedIdentity(),
-            'federated_provider' => $user->getFederatedProvider(),
-            'user_id' => $user->getUserId(),
-        ));
-
-        parent::setAuthenticated(true);
+        if ($roles) {
+            $this->setAuthenticated(true);
+        }
     }
 
-    /**
-     * Returns the user credentials.
-     *
-     * @return mixed The user credentials
-     */
     public function getCredentials()
     {
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setAuthenticated($authenticated)
+    public function __toString()
     {
-        if ($authenticated) {
-            throw new \LogicException('You cannot set this token to authenticated after creation.');
+        $attributes = '';
+        foreach ($this->getAttributes() as $key => $value) {
+            $attributes .= ', '.sprintf('%s="%s"', $key, $value);
         }
 
-        parent::setAuthenticated(false);
+        return sprintf(substr(parent::__toString(), 0, -1).'%s)', $attributes);
     }
 }
