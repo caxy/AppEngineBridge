@@ -10,21 +10,41 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 /**
  * Class UserProvider.
  */
-class UserProvider implements UserProviderInterface
+class AppEngineUserProvider implements UserProviderInterface
 {
+    private $userRoles;
+    private $adminRoles;
+
+    /**
+     * @param $userRoles
+     * @param $adminRoles
+     */
+    public function __construct($userRoles = array(), $adminRoles = array())
+    {
+        $this->userRoles = $userRoles;
+        $this->adminRoles = $adminRoles;
+    }
+
     /**
      * {@inheritdocs}.
      */
     public function loadUserByUsername($username)
     {
-        if (UserService::getCurrentUser()->getNickname() !== $username) {
+        $user = UserService::getCurrentUser();
+
+        if ($user->getNickname() !== $username) {
             $ex = new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
             $ex->setUsername($username);
 
             throw $ex;
         }
 
-        return new User(UserService::getCurrentUser(), UserService::isCurrentUserAdmin());
+        $roles = $this->userRoles;
+        if (UserService::isCurrentUserAdmin()) {
+            $roles = array_merge($roles, $this->adminRoles);
+        }
+
+        return new AppEngineUser($user, $roles);
     }
 
     /**

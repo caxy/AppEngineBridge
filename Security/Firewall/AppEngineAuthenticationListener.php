@@ -2,7 +2,7 @@
 
 namespace Caxy\AppEngine\Bridge\Security\Firewall;
 
-use Caxy\AppEngine\Bridge\Security\Authentication\UserToken;
+use Caxy\AppEngine\Bridge\Security\Authentication\AppEngineToken;
 use google\appengine\api\users\UserService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Firewall\ListenerInterface;
 
-class Listener implements ListenerInterface
+class AppEngineAuthenticationListener implements ListenerInterface
 {
     protected $tokenStorage;
     protected $authenticationManager;
@@ -28,8 +28,8 @@ class Listener implements ListenerInterface
             return;
         }
 
-        $token = new UserToken();
-        $token->setUser(UserService::getCurrentUser());
+        $user = UserService::getCurrentUser();
+        $token = new AppEngineToken($user);
 
         try {
             $authToken = $this->authenticationManager->authenticate($token);

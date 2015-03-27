@@ -2,12 +2,13 @@
 
 namespace Caxy\AppEngine\Bridge\Security\Authentication;
 
+use google\appengine\api\users\UserService;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class Provider implements AuthenticationProviderInterface
+class AppEngineAuthenticationProvider implements AuthenticationProviderInterface
 {
     private $userProvider;
 
@@ -21,9 +22,7 @@ class Provider implements AuthenticationProviderInterface
         $user = $this->userProvider->loadUserByUsername($token->getUsername());
 
         if ($user) {
-            $authenticatedToken = new UserToken($user->getRoles());
-            $authenticatedToken->setUser($user);
-            $authenticatedToken->setAuthenticated(true);
+            $authenticatedToken = new AppEngineToken(UserService::getCurrentUser(), $user->getRoles());
 
             return $authenticatedToken;
         }
@@ -33,6 +32,6 @@ class Provider implements AuthenticationProviderInterface
 
     public function supports(TokenInterface $token)
     {
-        return $token instanceof UserToken;
+        return $token instanceof AppEngineToken;
     }
 }

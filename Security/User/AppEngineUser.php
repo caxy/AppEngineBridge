@@ -2,28 +2,29 @@
 
 namespace Caxy\AppEngine\Bridge\Security\User;
 
+use google\appengine\api\users\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface
+class AppEngineUser implements UserInterface
 {
     /**
-     * @var \google\appengine\api\users\User
+     * @var User
      */
     private $user;
 
     /**
-     * @var bool
+     * @var array
      */
-    private $isAdmin;
+    private $roles;
 
     /**
-     * @param \google\appengine\api\users\User $user
-     * @param bool                             $isAdmin
+     * @param User  $user
+     * @param array $roles
      */
-    public function __construct(\google\appengine\api\users\User $user, $isAdmin = false)
+    public function __construct(User $user, array $roles = array())
     {
         $this->user = $user;
-        $this->isAdmin = $isAdmin;
+        $this->roles = $roles;
     }
 
     /**
@@ -31,7 +32,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return $this->isAdmin ? array('ROLE_SUPER_ADMIN', 'ROLE_USER') : array('ROLE_USER');
+        return $this->roles;
     }
 
     /**
