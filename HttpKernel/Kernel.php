@@ -35,10 +35,10 @@ abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
     public function getCacheDir()
     {
         if (self::isAppEngine()) {
-            return 'gs://'.$this->defaultStorageBucketName.'/var/cache/'.$this->environment;
+            return 'gs://'.$this->defaultStorageBucketName.'/var/cache/'.$this->getName().'/'.$this->environment;
         }
 
-        return parent::getCacheDir();
+        return $this->rootDir.'/../var/cache/'.$this->getName().'/'.$this->environment;
     }
 
     /**
@@ -47,10 +47,10 @@ abstract class Kernel extends \Symfony\Component\HttpKernel\Kernel
     public function getLogDir()
     {
         if (self::isAppEngine()) {
-            return 'gs://'.$this->defaultStorageBucketName.'/var/logs';
+            return 'gs://'.$this->defaultStorageBucketName.'/var/logs/'.$this->getName();
         }
 
-        return parent::getLogDir();
+        return $this->rootDir.'/../var/logs/'.$this->getName();
     }
 
     /**
