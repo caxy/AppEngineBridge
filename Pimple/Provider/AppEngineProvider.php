@@ -14,27 +14,10 @@ use Silex\Provider\MonologServiceProvider;
 class AppEngineProvider implements ServiceProviderInterface
 {
     /**
-     * @var bool
-     */
-    private $isAppEngine = false;
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->isAppEngine = strpos($_SERVER['SERVER_SOFTWARE'], 'Google App Engine') === 0;
-    }
-
-    /**
      * {@inheritdocs}.
      */
     public function register(Container $pimple)
     {
-        if (!$this->isAppEngine) {
-            return;
-        }
-
         $pimple['google.storage_bucket.default'] = CloudStorageTools::getDefaultGoogleStorageBucketName();
 
         $pimple['twig.options'] = array('cache' => 'gs://'.$pimple['google.storage_bucket.default'].'/var/cache/twig');
