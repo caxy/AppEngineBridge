@@ -29,7 +29,11 @@ class AppEngineProvider implements ServiceProviderInterface
         };
 
         $pimple['profiler.storage'] = function (Container $pimple) {
-            return new MysqlProfilerStorage($pimple['app_engine.default_database_dsn'], $pimple['database_user'], isset($pimple['database_password']) ?: '');
+            if (isset($pimple['database_password'])) {
+                return new MysqlProfilerStorage($pimple['app_engine.default_database_dsn'], $pimple['database_user'], $pimple['database_password']);
+            }
+
+            return new MysqlProfilerStorage($pimple['app_engine.default_database_dsn'], $pimple['database_user']);
         };
 
         $pimple['app_engine.security.user_provider.default.user_roles'] = array('ROLE_USER');
