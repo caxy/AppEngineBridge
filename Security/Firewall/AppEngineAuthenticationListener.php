@@ -100,7 +100,7 @@ class AppEngineAuthenticationListener implements ListenerInterface
             $this->tokenStorage->setToken(null);
 
             if (null !== $this->logger) {
-                $this->logger->info(sprintf("Cleared security context due to exception: %s", $exception->getMessage()));
+                $this->logger->info(sprintf('Cleared security context due to exception: %s', $exception->getMessage()));
             }
         }
     }

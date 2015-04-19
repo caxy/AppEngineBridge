@@ -2,8 +2,8 @@
 
 namespace Caxy\AppEngine\Bridge\Pimple\Provider;
 
-use google\appengine\api\cloud_storage\CloudStorageTools;
 use Caxy\AppEngine\Bridge\Monolog\Handler\SyslogHandler;
+use google\appengine\api\cloud_storage\CloudStorageTools;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Provider\MonologServiceProvider;
