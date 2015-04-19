@@ -16,9 +16,6 @@ use Symfony\Component\HttpKernel\Profiler\MysqlProfilerStorage;
  */
 class AppEngineProvider implements ServiceProviderInterface
 {
-    /**
-     * {@inheritdocs}.
-     */
     public function register(Container $pimple)
     {
         $pimple['app_engine.default_database_dsn'] = 'mysql:unix_socket='.$pimple['database_unix_socket'].';dbname='.$pimple['database_name'];
