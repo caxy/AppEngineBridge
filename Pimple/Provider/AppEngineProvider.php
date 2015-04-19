@@ -18,9 +18,9 @@ class AppEngineProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-        $pimple['google.storage_bucket.default'] = CloudStorageTools::getDefaultGoogleStorageBucketName();
+        $pimple['app_engine.storage_bucket.default'] = CloudStorageTools::getDefaultGoogleStorageBucketName();
 
-        $pimple['twig.options'] = array('cache' => 'gs://'.$pimple['google.storage_bucket.default'].'/var/cache/twig');
+        $pimple['twig.options'] = array('cache' => 'gs://'.$pimple['app_engine.storage_bucket.default'].'/var/cache/twig');
 
         $pimple['monolog.handler'] = function (Container $pimple) {
             $level = MonologServiceProvider::translateLevel($pimple['monolog.level']);
