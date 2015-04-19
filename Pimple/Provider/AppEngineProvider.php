@@ -3,6 +3,9 @@
 namespace Caxy\AppEngine\Bridge\Pimple\Provider;
 
 use Caxy\AppEngine\Bridge\Monolog\Handler\SyslogHandler;
+use Caxy\AppEngine\Bridge\Security\Authentication\AppEngineAuthenticationProvider;
+use Caxy\AppEngine\Bridge\Security\Firewall\AppEngineAuthenticationListener;
+use Caxy\AppEngine\Bridge\Security\User\AppEngineUserProvider;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Provider\MonologServiceProvider;
@@ -31,5 +34,35 @@ class AppEngineProvider implements ServiceProviderInterface
         $pimple['profiler.storage'] = function (Container $pimple) {
             return new MysqlProfilerStorage($pimple['app_engine.default_database_dsn'], $pimple['database_user'], isset($pimple['database_password']) ?: '');
         };
+
+        $pimple['app_engine.security.user_provider.default.user_roles'] = array('ROLE_USER');
+        $pimple['app_engine.security.user_provider.default.admin_roles'] = array('ROLE_ADMIN');
+        $pimple['app_engine.security.user_provider.default'] = function (Container $pimple) {
+            return new AppEngineUserProvider($pimple['app_engine.security.user_provider.default.user_roles'], $pimple['app_engine.security.user_provider.default.admin_roles']);
+        };
+
+        $pimple['security.authentication_listener.factory.app_engine'] = $pimple->protect(function ($name, $options) use ($pimple) {
+            // define the authentication provider object
+            $pimple['security.authentication_provider.'.$name.'.app_engine'] = function () use ($name, $pimple) {
+                return new AppEngineAuthenticationProvider($pimple['app_engine.security.user_provider.'. $name]);
+            };
+
+            // define the authentication listener object
+            $pimple['security.authentication_listener.'.$name.'.app_engine'] = function () use ($pimple) {
+                // use 'security' instead of 'security.token_storage' on Symfony <2.6
+                return new AppEngineAuthenticationListener($pimple['security.token_storage'], $pimple['security.authentication_manager']);
+            };
+
+            return array(
+                // the authentication provider id
+                'security.authentication_provider.'.$name.'.app_engine',
+                // the authentication listener id
+                'security.authentication_listener.'.$name.'.app_engine',
+                // the entry point id
+                null,
+                // the position of the listener in the stack
+                'pre_auth'
+            );
+        });
     }
 }
