@@ -51,7 +51,7 @@ class AppEngineProvider implements ServiceProviderInterface
             // define the authentication listener object
             $pimple['security.authentication_listener.'.$name.'.app_engine'] = function () use ($pimple) {
                 // use 'security' instead of 'security.token_storage' on Symfony <2.6
-                return new AppEngineAuthenticationListener($pimple['security.token_storage'], $pimple['security.authentication_manager']);
+                return new AppEngineAuthenticationListener($pimple['security.token_storage'], $pimple['security.authentication_manager'], $pimple['logger'], $pimple['dispatcher']);
             };
 
             return array(
