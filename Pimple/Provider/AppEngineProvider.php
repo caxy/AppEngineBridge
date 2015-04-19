@@ -20,8 +20,6 @@ class AppEngineProvider implements ServiceProviderInterface
     {
         $pimple['app_engine.storage_bucket.default'] = CloudStorageTools::getDefaultGoogleStorageBucketName();
 
-        $pimple['twig.options'] = array('cache' => 'gs://'.$pimple['app_engine.storage_bucket.default'].'/var/cache/twig');
-
         $pimple['monolog.handler'] = function (Container $pimple) {
             $level = MonologServiceProvider::translateLevel($pimple['monolog.level']);
 
