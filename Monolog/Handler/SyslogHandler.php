@@ -3,32 +3,15 @@
 namespace Caxy\AppEngine\Bridge\Monolog\Handler;
 
 use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Logger;
+use Monolog\Handler\AbstractSyslogHandler;
 
 /**
  * Class SyslogHandler.
  */
-class SyslogHandler extends AbstractProcessingHandler
+class SyslogHandler extends AbstractSyslogHandler
 {
     /**
-     * Translates Monolog log levels to syslog log priorities.
-     */
-    protected $logLevels = array(
-      Logger::DEBUG     => LOG_DEBUG,
-      Logger::INFO      => LOG_INFO,
-      Logger::NOTICE    => LOG_NOTICE,
-      Logger::WARNING   => LOG_WARNING,
-      Logger::ERROR     => LOG_ERR,
-      Logger::CRITICAL  => LOG_CRIT,
-      Logger::ALERT     => LOG_ALERT,
-      Logger::EMERGENCY => LOG_EMERG,
-    );
-
-    /**
-     * Writes the record down to the log of the implementing handler.
-     *
-     * @param array $record
+     * {@inheritdoc}
      */
     protected function write(array $record)
     {

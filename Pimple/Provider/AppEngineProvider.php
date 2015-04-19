@@ -25,7 +25,7 @@ class AppEngineProvider implements ServiceProviderInterface
         $pimple['monolog.handler'] = function (Container $pimple) {
             $level = MonologServiceProvider::translateLevel($pimple['monolog.level']);
 
-            $handler = new SyslogHandler($level, $pimple['monolog.bubble']);
+            $handler = new SyslogHandler(LOG_USER, $level, $pimple['monolog.bubble']);
 
             return $handler;
         };
